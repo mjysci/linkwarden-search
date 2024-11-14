@@ -17,7 +17,7 @@ This Violentmonkey UserScript enhances your web browsing experience by letting y
 
 1. **Install Violentmonkey**: Make sure the Violentmonkey extension is installed in your browser. You can download it from [here](https://violentmonkey.github.io/).
 
-2. **Install Script**: Click [here](https://github.com/mjysci/hypothesis-search/raw/refs/heads/main/hypothesisSearch.user.js) to open Violentmonkey's Userscript installation page, then click `Install`.
+2. **Install Script**: Click [here](https://github.com/mjysci/linkwarden-search/raw/refs/heads/main/linkwardenSearch.user.js) to open Violentmonkey's Userscript installation page, then click `Install`.
 
 3. **Generate Linkwarden API Token**: Go to Settings -> Access Tokens -> New Access Token to generate an API token.
 
