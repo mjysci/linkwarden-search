@@ -53,7 +53,7 @@ We welcome suggestions or bug reports! To submit a pull request:
 
 ## License
 
-This project is licensed under the GPL-3.0 License. See the [LICENSE](https://github.com/mjysci/hypothesis-search/blob/main/LICENSE) file for more information.
+This project is licensed under the GPL-3.0 License. See the [LICENSE](https://github.com/mjysci/linkwarden-search/blob/main/LICENSE) file for more information.
 
 ## Author
 

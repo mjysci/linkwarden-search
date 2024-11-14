@@ -17,6 +17,7 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @connect      cloud.linkwarden.app
+// @license      GPL-3.0
 // ==/UserScript==
 
 (function () {
