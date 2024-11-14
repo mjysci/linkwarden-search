@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Linkwarden Search
 // @namespace    https://mjyai.com
-// @version      1.0.0
+// @version      1.1.0
 // @description  Search user's Linkwarden bookmarks across multiple search engines
 // @author       MA Junyi
 // @match        https://www.google.com/search*
@@ -11,6 +11,7 @@
 // @match        https://search.brave.com/search*
 // @match        https://yandex.com/search*
 // @match        https://presearch.com/search*
+// @match        *://*/search*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
 // @grant        GM_setValue
@@ -236,18 +237,35 @@
         }
 
         .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            margin-bottom: 16px !important;
+            padding: 8px 0 !important;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: auto !important;
+            margin: 0 !important;
         }
 
         .checkbox-container label {
-            margin: 0;
+            display: inline !important;
+            margin: 0 !important;
+            cursor: pointer !important;
         }
     `;
 
     const getQueryParameter = (param) => new URLSearchParams(window.location.search).get(param);
+
+    const isSearxNG = () => {
+        return (
+            document.querySelector('meta[name="generator"][content*="searxng"]') !== null ||
+            document.querySelector('a[href*="searx/preferences"]') !== null ||
+            document.querySelector('a[href*="searx/settings"]') !== null ||
+            document.querySelector('label[for="time_range"]') !== null
+        );
+    };
 
     const searchEngines = {
         'google.com': { getQuery: () => getQueryParameter('q') },
@@ -262,6 +280,12 @@
     GM_addStyle(styles);
 
     const getCurrentSearchQuery = () => {
+        const searxngEnabled = GM_getValue('searxngEnabled', false);
+
+        if (searxngEnabled && isSearxNG()) {
+            return getQueryParameter('q');
+        }
+
         const currentDomain = Object.keys(searchEngines).find(domain =>
             window.location.hostname.includes(domain));
         return currentDomain ? searchEngines[currentDomain].getQuery() : null;
@@ -269,12 +293,14 @@
 
     const getSettings = () => ({
         baseUrl: GM_getValue('linkwardenUrl', 'https://cloud.linkwarden.app'),
-        apiToken: GM_getValue('linkwardenApiToken', '')
+        apiToken: GM_getValue('linkwardenApiToken', ''),
+        searxngEnabled: GM_getValue('searxngEnabled', false)
     });
 
     const saveSettings = (baseUrl, apiToken) => {
         GM_setValue('linkwardenUrl', baseUrl);
         GM_setValue('linkwardenApiToken', apiToken);
+        GM_setValue('searxngEnabled', searxngEnabled);
     };
 
     const addSettingsIcon = () => {
@@ -306,6 +332,10 @@
             <input type="text" id="baseUrl"><br>
             <label for="apiToken">API Token(*):</label><br>
             <input type="text" id="apiToken"><br>
+            <div class="checkbox-container">
+                <label for="searxngEnabled">SearXNG Support</label>
+                <input type="checkbox" id="searxngEnabled" ${settings.searxngEnabled ? 'checked' : ''}>
+            </div>
             <button id="saveSettings">Save</button>
             <button id="closeSettings">Close</button>
         `;
@@ -314,11 +344,13 @@
 
         document.getElementById('baseUrl').value = settings.baseUrl;
         document.getElementById('apiToken').value = settings.apiToken;
+        document.getElementById('searxngEnabled').checked = settings.searxngEnabled;
 
         document.getElementById('saveSettings').onclick = () => {
             const baseUrl = document.getElementById('baseUrl').value;
             const apiToken = document.getElementById('apiToken').value;
-            saveSettings(baseUrl, apiToken);
+            const searxngEnabled = document.getElementById('searxngEnabled').checked;
+            saveSettings(baseUrl, apiToken, searxngEnabled);
             alert('Settings saved!');
             document.body.removeChild(settingsPanel);
             fetchItems(getCurrentSearchQuery());

@@ -2,7 +2,7 @@
 
 ## Description
 
-This Violentmonkey UserScript enhances your web browsing experience by letting you search through your Linkwarden bookmarks across multiple search engines. With this script, you can quickly find and access your bookmarks while searching on popular platforms like Google, Bing, DuckDuckGo, and more.
+This Violentmonkey UserScript enhances your web browsing experience by letting you search through your Linkwarden bookmarks across multiple search engines. With this script, you can quickly find and access your bookmarks while searching on popular platforms like Google, Bing, DuckDuckGo, SearXNG and more.
 
 ![Linkwarden Search Screenshot](https://cdn.jsdelivr.net/gh/mjysci/imgs@master/blog/linkwardenSearch_screenshot.png)
 
@@ -12,6 +12,7 @@ This Violentmonkey UserScript enhances your web browsing experience by letting y
 - **Custom Settings**: Configure your Linkwarden URL and API token for secure access to your bookmarks.
 - **Pagination**: Navigate through your bookmarks with pagination controls for easier browsing.
 - **Stylish Interface**: A clean, modern UI that integrates smoothly into your search experience.
+- **SearXNG Support**: Compatible with [SearXNG](https://github.com/searxng/searxng), a privacy-respecting, hackable metasearch engine.
 
 ## Installation
 
