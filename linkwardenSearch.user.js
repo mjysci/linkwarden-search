@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Linkwarden Search
 // @namespace    https://mjyai.com
-// @version      1.1.0
+// @version      1.1.1
 // @description  Search user's Linkwarden bookmarks across multiple search engines
 // @author       MA Junyi
 // @match        https://www.google.com/search*
@@ -53,9 +53,11 @@
             z-index: 99999 !important;
             font-family: Roboto, Arial, sans-serif !important;
             transition: box-shadow 0.3s ease !important;
+            opacity: 0.95 !important;
         }
 
         #linkwarden-panel:hover {
+            opacity: 1 !important;
             box-shadow: var(--md-shadow-2) !important;
         }
 
