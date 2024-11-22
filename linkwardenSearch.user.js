@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Linkwarden Search
 // @namespace    https://mjyai.com
-// @version      1.1.1
+// @version      1.2.0
 // @description  Search user's Linkwarden bookmarks across multiple search engines
 // @author       MA Junyi
 // @match        https://www.google.com/search*
@@ -34,8 +34,28 @@
             --md-surface: #ffffff;
             --md-on-surface: #1f1f1f;
             --md-outline: rgba(0, 0, 0, 0.12);
+            --md-text-primary: rgba(0, 0, 0, 0.87);
+            --md-text-secondary: rgba(0, 0, 0, 0.6);
+            --md-text-disabled: rgba(0, 0, 0, 0.38);
+            --md-hover-overlay: rgba(0, 0, 0, 0.04);
             --md-shadow-1: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
             --md-shadow-2: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --md-primary: #90caf9;
+                --md-primary-dark: #82b1ff;
+                --md-surface: #1e1e1e;
+                --md-on-surface: #ffffff;
+                --md-outline: rgba(255, 255, 255, 0.12);
+                --md-text-primary: rgba(255, 255, 255, 0.87);
+                --md-text-secondary: rgba(255, 255, 255, 0.6);
+                --md-text-disabled: rgba(255, 255, 255, 0.38);
+                --md-hover-overlay: rgba(255, 255, 255, 0.04);
+                --md-shadow-1: 0 2px 4px -1px rgba(0,0,0,.4), 0 4px 5px 0 rgba(0,0,0,.34), 0 1px 10px 0 rgba(0,0,0,.32);
+                --md-shadow-2: 0 5px 5px -3px rgba(0,0,0,.4), 0 8px 10px 1px rgba(0,0,0,.34), 0 3px 14px 2px rgba(0,0,0,.32);
+            }
         }
 
         #linkwarden-panel {
@@ -54,6 +74,7 @@
             font-family: Roboto, Arial, sans-serif !important;
             transition: box-shadow 0.3s ease !important;
             opacity: 0.95 !important;
+            color: var(--md-text-primary) !important;
         }
 
         #linkwarden-panel:hover {
@@ -74,8 +95,8 @@
             top: 16px !important;
             right: 16px !important;
             cursor: pointer !important;
-            color: var(--md-on-surface) !important;
-            opacity: 0.54 !important;
+            color: var(--md-text-secondary) !important;
+            opacity: 0.87 !important;
             transition: opacity 0.2s ease !important;
             padding: 8px !important;
             border-radius: 50% !important;
@@ -83,8 +104,8 @@
         }
 
         .gear-icon:hover {
-            opacity: 0.87 !important;
-            background: rgba(0, 0, 0, 0.04) !important;
+            opacity: 1 !important;
+            background: var(--md-hover-overlay) !important;
         }
 
         .item-div {
@@ -93,6 +114,7 @@
             border-radius: 4px !important;
             border: 1px solid var(--md-outline) !important;
             transition: all 0.2s ease !important;
+            color: var(--md-text-primary) !important;
         }
 
         .item-div:hover {
@@ -109,7 +131,7 @@
 
         .item-div div:nth-child(2) {
             font-size: 14px !important;
-            color: rgba(0, 0, 0, 0.87) !important;
+            color: var(--md-text-primary) !important;
             line-height: 1.5 !important;
             margin-bottom: 8px !important;
         }
@@ -151,16 +173,16 @@
         }
 
         .pagination button:hover:not(:disabled) {
-            background: rgba(25, 118, 210, 0.04) !important;
+            background: var(--md-hover-overlay) !important;
         }
 
         .pagination button:disabled {
-            color: rgba(0, 0, 0, 0.38) !important;
+            color: var(--md-text-disabled) !important;
             cursor: default !important;
         }
 
         .page-info {
-            color: rgba(0, 0, 0, 0.6) !important;
+            color: var(--md-text-secondary) !important;
             font-size: 14px !important;
         }
 
@@ -176,6 +198,7 @@
             z-index: 100001 !important;
             min-width: 320px !important;
             max-width: 400px !important;
+            color: var(--md-text-primary) !important;
         }
 
         #settings-panel h3 {
@@ -186,7 +209,7 @@
         }
 
         #settings-panel label {
-            color: rgba(0, 0, 0, 0.87) !important;
+            color: var(--md-text-primary) !important;
             font-size: 14px !important;
             margin-bottom: 4px !important;
             display: block !important;
@@ -201,6 +224,8 @@
             font-size: 16px !important;
             transition: border-color 0.2s ease !important;
             box-sizing: border-box;
+            background: var(--md-surface) !important;
+            color: var(--md-text-primary) !important;
         }
 
         #settings-panel input:focus {
@@ -210,7 +235,7 @@
 
         #settings-panel button {
             background: var(--md-primary) !important;
-            color: white !important;
+            color: var(--md-surface) !important;
             border: none !important;
             padding: 8px 16px !important;
             border-radius: 4px !important;
@@ -236,7 +261,7 @@
         }
 
         #settings-panel button#closeSettings:hover {
-            background: rgba(25, 118, 210, 0.04) !important;
+            background: var(--md-hover-overlay) !important;
         }
 
         .checkbox-container {
