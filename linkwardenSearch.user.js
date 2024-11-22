@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Linkwarden Search
 // @namespace    https://mjyai.com
-// @version      1.2.0
+// @version      1.3.0
 // @description  Search user's Linkwarden bookmarks across multiple search engines
 // @author       MA Junyi
 // @match        https://www.google.com/search*
@@ -115,17 +115,21 @@
             border: 1px solid var(--md-outline) !important;
             transition: all 0.2s ease !important;
             color: var(--md-text-primary) !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            display: block !important;
         }
 
         .item-div:hover {
             border-color: var(--md-primary) !important;
             box-shadow: 0 1px 3px rgba(0,0,0,0.12) !important;
+            background: var(--md-hover-overlay) !important;
         }
 
         .item-div strong {
             display: block !important;
             font-size: 16px !important;
-            color: var(--md-on-surface) !important;
+            color: var(--md-primary) !important;
             margin-bottom: 8px !important;
         }
 
@@ -134,20 +138,6 @@
             color: var(--md-text-primary) !important;
             line-height: 1.5 !important;
             margin-bottom: 8px !important;
-        }
-
-        .item-div a {
-            color: var(--md-primary) !important;
-            text-decoration: none !important;
-            font-size: 14px !important;
-            font-weight: 500 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.5px !important;
-            transition: color 0.2s ease !important;
-        }
-
-        .item-div a:hover {
-            color: var(--md-primary-dark) !important;
         }
 
         .pagination {
@@ -418,12 +408,13 @@
             const currentItems = totalItems.slice(startIdx, endIdx);
 
             currentItems.forEach(item => {
-                const itemDiv = document.createElement('div');
+                const itemDiv = document.createElement('a');
                 itemDiv.className = 'item-div';
+                itemDiv.href = item.url;
+                itemDiv.target = '_blank';
                 itemDiv.innerHTML = `
                     <div><strong>${item.name || 'Untitled'}</strong></div>
                     <div>${item.description ? item.description : ''}</div>
-                    <a href="${item.url}" target="_blank">View Bookmark</a>
                 `;
                 contentDiv.appendChild(itemDiv);
             });
